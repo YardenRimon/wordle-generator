@@ -1,4 +1,6 @@
-export default function Display() {
+export default function Display({ place }) {
+  const { x, y } = place.location;
+
   return (
     <>
       <iframe
@@ -7,9 +9,9 @@ export default function Display() {
         scrolling="no"
         marginHeight="0"
         marginWidth="0"
-        width="450px"
+        width="100%"
         height="350px"
-        src="https://www.govmap.gov.il/map.html?bb=0&zb=0&in=0&c=178213,522735&z=10&b=1"
+        src={`https://www.govmap.gov.il/map.html?bb=0&zb=0&in=0&c=${x},${y}&z=10&b=1`}
       >
         {" "}
       </iframe>

@@ -24,7 +24,9 @@ const handler = async (req, res) => {
   } else if (req.method === "GET") {
     Place.find()
       .then((places) => {
-        res.status(200).send(places);
+        const placesNames = places.map((place) => place.title);
+        const place = places.find((place) => !place.used);
+        res.status(200).send({ placesNames, place });
       })
       .catch((err) => res.send("ERROR:", err));
   } else {

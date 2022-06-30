@@ -12,16 +12,13 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function Answers() {
+export default function Answers({ answers }) {
   return (
     <Box sx={{ width: "100%" }}>
       <Stack spacing={2}>
-        <Item>Item 1</Item>
-        <Item>Item 2</Item>
-        <Item>Item 3</Item>
-        <Item>Item 3</Item>
-        <Item>Item 3</Item>
-        <Item>Item 3</Item>
+        {answers.map((answer, index) => (
+          <Item key={index}>{answer}</Item>
+        ))}
       </Stack>
     </Box>
   );

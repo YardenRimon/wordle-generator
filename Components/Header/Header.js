@@ -31,15 +31,18 @@ const Header = () => {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container
+        width="100%"
+        sx={{ flexGrow: 0, display: "flex", justifyContent: "center" }}
+      >
         <Toolbar disableGutters>
           <Stack direction="row" alignItems="center" spacing={1}>
-            <IconButton aria-label="Info" size="small">
+            <IconButton aria-label="Info" size="large">
               <InfoRoundedIcon fontSize="inherit" />
             </IconButton>
           </Stack>
           <Stack direction="row" alignItems="center" spacing={1}>
-            <IconButton aria-label="download" size="small">
+            <IconButton aria-label="download" size="large">
               <DownloadRoundedIcon fontSize="inherit" />
             </IconButton>
           </Stack>
@@ -68,12 +71,12 @@ const Header = () => {
           </Typography>
 
           <Stack direction="row" alignItems="center" spacing={1}>
-            <IconButton aria-label="statistics" size="small">
+            <IconButton aria-label="statistics" size="large">
               <BarChartRoundedIcon fontSize="inherit" />
             </IconButton>
           </Stack>
           <Stack direction="row" alignItems="center" spacing={1}>
-            <IconButton aria-label="Settings" size="small">
+            <IconButton aria-label="Settings" size="large">
               <SettingsRoundedIcon fontSize="inherit" />
             </IconButton>
           </Stack>

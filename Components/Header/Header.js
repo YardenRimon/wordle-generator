@@ -1,10 +1,9 @@
 import BarChartRoundedIcon from "@mui/icons-material/BarChartRounded";
-import DeleteIcon from "@mui/icons-material/Delete";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
+// import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
@@ -12,23 +11,23 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import * as React from "react";
-const modals = [
-  { title: "Info", icon: InfoRoundedIcon },
-  { title: "Download", icon: DownloadRoundedIcon },
-  { title: "statistics", icon: BarChartRoundedIcon },
-  { title: "Settings", icon: SettingsRoundedIcon },
-];
+// const modals = [
+//   { title: "Info", icon: InfoRoundedIcon },
+//   { title: "Download", icon: DownloadRoundedIcon },
+//   { title: "statistics", icon: BarChartRoundedIcon },
+//   { title: "Settings", icon: SettingsRoundedIcon },
+// ];
 
 const Header = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  //   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+  //   const handleOpenNavMenu = (event) => {
+  //     setAnchorElNav(event.currentTarget);
+  //   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  //   const handleCloseNavMenu = () => {
+  //     setAnchorElNav(null);
+  //   };
 
   return (
     <AppBar position="static">

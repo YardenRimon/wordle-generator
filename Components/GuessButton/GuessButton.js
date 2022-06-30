@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 export default function GuessButton() {
   return (
     <Stack spacing={2} direction="row">
-      <Button variant="outlined" fullWidth="true">
+      <Button variant="outlined" fullWidth={true}>
         Guess
       </Button>
     </Stack>

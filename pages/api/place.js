@@ -1,19 +1,17 @@
 import connectDB from "../../middleware/mongodb";
-import bcrypt from "bcrypt";
 import Place from "../../models/place";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
-    const { title, description, location, map, details, used } = req.body;
-    if (title && description && location && map && details && used) {
+    const { title, description, location, details } = req.body;
+    // const { x, y } = location;
+    if (title && description && location && details) {
       try {
         const place = new Place({
           title,
           description,
           location,
-          map,
           details,
-          used,
         });
         const placecreated = await place.save();
         return res.status(200).send(placecreated);
@@ -23,6 +21,12 @@ const handler = async (req, res) => {
     } else {
       res.status(422).send("data_incomplete");
     }
+  } else if (req.method === "GET") {
+    Place.find()
+      .then((places) => {
+        res.status(200).send(places);
+      })
+      .catch((err) => res.send("ERROR:", err));
   } else {
     res.status(422).send("req_method_not_supported");
   }

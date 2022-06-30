@@ -1,13 +1,27 @@
 import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
-import Display from "../Components/Display/Display";
-import PlaceInput from "../Components/PlaceInput/PlaceInput";
+import { useEffect } from "react";
 import Answers from "../Components/Answers/Answers";
+import Display from "../Components/Display/Display";
 import GuessButton from "../Components/GuessButton/GuessButton";
 import Header from "../Components/Header/Header";
+import PlaceInput from "../Components/PlaceInput/PlaceInput";
+import styles from "../styles/Home.module.css";
 
 export default function Home() {
+  useEffect(() => {
+    function fetchPlace() {
+      fetch("/api/place")
+        .then((res) => res.json())
+        .then((places) => {
+          console.log(places);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    fetchPlace();
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -25,7 +39,6 @@ export default function Home() {
         <Answers />
         <PlaceInput />
         <GuessButton />
-        {/* <Bottom/> */}
       </main>
 
       <footer className={styles.footer}>

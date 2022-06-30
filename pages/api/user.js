@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import User from "../../models/user";
 
 const handler = async (req, res) => {
+  req.dasdasd;
   if (req.method === "POST") {
     const { name, email, password } = req.body;
     if (name && email && password) {

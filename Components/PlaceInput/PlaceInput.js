@@ -2,18 +2,24 @@ import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
-export default function PlaceInput({ placesNames, answers, setAnswers }) {
+export default function PlaceInput({
+  placesNames,
+  answers,
+  setAnswers,
+  setGameOver,
+  setPlayerWon,
+  place,
+}) {
   console.log("placesNames", placesNames);
   const handleKeyDown = (e) => {
+    const newAnswer = e.target.value;
     if (e.key === "Enter") {
-      console.log(i);
       const newAnswers = [...answers];
-      console.log(newAnswers);
       const i = newAnswers.findIndex((answer) => answer === "");
-      newAnswers[i] = e.target.value;
-      console.log(newAnswers);
+      newAnswers[i] = newAnswer;
       setAnswers(newAnswers);
-      e.target.value = "";
+      setGameOver(i === -1 ? true : false);
+      setPlayerWon(newAnswer === place.title ? true : false);
     }
   };
 

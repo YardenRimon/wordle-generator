@@ -12,8 +12,13 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function Answers({ answers }) {
+export default function Answers({ answers, place }) {
   console.log("answers", answers);
+  // const lastGuess = answers.reverse.find((answer) => answer !== "");
+  // console.log(lastGuess);
+  // if (lastGuess === place) {
+  //   alert("you won!");
+
   return (
     <Box sx={{ width: "100%" }}>
       <Stack spacing={3}>

@@ -11,11 +11,8 @@ export default function Home() {
   const [place, setPlace] = useState(null);
   const [placesNames, setPlaceNames] = useState([]);
   const [answers, setAnswers] = useState(["", "", "", "", "", ""]);
-  // const [unswer2, setanswer2]=useState("")
-  // const [unswer3, setanswer3]=useState("")
-  // const [unswer4, setanswer4]=useState("")
-  // const [unswer5, setanswer5]=useState("")
-  // const [unswer6, setanswer6]=useState("")
+  const [gameOver, setGameOver] = useState(false);
+  const [playerWon, setPlayerWon] = useState(false);
 
   useEffect(() => {
     function fetchPlace() {
@@ -44,14 +41,21 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <Header />
-        {!!place ? <Display place={place} /> : <p>Loading Riddle...</p>}
-        <Answers answers={answers} />
+        <Header /> gameOver
+        {!!place ? (
+          <Display place={place} playerWon={playerWon} gameOver={gameOver} />
+        ) : (
+          <p>Loading Riddle...</p>
+        )}
+        <Answers answers={answers} place={place} />
         {placesNames.length && (
           <PlaceInput
             placesNames={placesNames}
             setAnswers={setAnswers}
             answers={answers}
+            setPlayerWon={setPlayerWon}
+            setGameOver={setGameOver}
+            place={place}
           />
         )}
         <GuessButton />

@@ -1,7 +1,12 @@
-export default function Display({ place }) {
+export default function Display({ place,gameOver,playerWon }) {
   const { x, y } = place.location;
 
   return (
+    if (gameOver) { if (playerWon) {
+      
+    }
+      
+    }
     <>
       <iframe
         id="ifrMap"

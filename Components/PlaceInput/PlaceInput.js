@@ -4,12 +4,16 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 export default function PlaceInput({ placesNames, answers, setAnswers }) {
   console.log("placesNames", placesNames);
-
   const handleKeyDown = (e) => {
-    console.log(e.key);
     if (e.key === "Enter") {
-      // setAnswers(e.target.value)
-      console.log(e.target.value);
+      console.log(i);
+      const newAnswers = [...answers];
+      console.log(newAnswers);
+      const i = newAnswers.findIndex((answer) => answer === "");
+      newAnswers[i] = e.target.value;
+      console.log(newAnswers);
+      setAnswers(newAnswers);
+      e.target.value = "";
     }
   };
 
@@ -19,9 +23,11 @@ export default function PlaceInput({ placesNames, answers, setAnswers }) {
       id="combo-box-demo"
       options={placesNames}
       sx={{ width: "100%" }}
+      tabIndex="0"
       onKeyDown={handleKeyDown}
-      onChange={(e, v) => setAnswers(v)}
-      renderInput={(params) => <TextField {...params} label="אתר בישראל" />}
+      renderInput={(params) => (
+        <TextField {...params} label="איזה אתר ישראלי מופיע בתמונה?" />
+      )}
     />
   );
 }

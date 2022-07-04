@@ -35,7 +35,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>Isradle</title>
         <meta
@@ -44,17 +44,20 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className={styles.main}>
-        <Header />
+      <Header />
+      {!!place ? (
+        <Display place={place} playerWon={playerWon} gameOver={gameOver} />
+      ) : (
+        <p>Loading Riddle...</p>
+      )}
+      <div className={styles.container}>
         {!!place ? (
-          <Display place={place} playerWon={playerWon} gameOver={gameOver} />
+          <Answers answers={answers} place={place} playerWon={playerWon} />
         ) : (
           <p>Loading Riddle...</p>
         )}
-        <Answers answers={answers} place={place} playerWon={playerWon} />
-        {!gameOver && placesNames.length && (
-          <>
+        <main className={styles.main}>
+          {!gameOver && placesNames.length && (
             <PlaceInput
               placesNames={placesNames}
               setAnswers={setAnswers}
@@ -64,15 +67,13 @@ export default function Home() {
               place={place}
               // setInput={setInput}
             />
-            <GuessButton />
-          </>
-        )}
-      </main>
-
-      <footer className={styles.footer}>
-        <div>Contact Us</div>
-        <div>Created by wordle-generator</div>
-      </footer>
-    </div>
+          )}
+        </main>
+        <footer className={styles.footer}>
+          <div>Contact Us</div>
+          <div>Created by wordle-generator</div>
+        </footer>
+      </div>
+    </>
   );
 }

@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
+import styles from "../../styles/Home.module.css";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -21,9 +22,9 @@ export default function Answers({ answers, place, playerWon }) {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Stack spacing={3}>
+      <Stack spacing={1} sx={{ p: 2 }}>
         {answers.map((answer, index) => (
-          <Item key={index} id={index}>
+          <Item key={index} id={index} className={styles.answer}>
             {answer === place.title ? answer + "u won!!!" : answer}
           </Item>
         ))}

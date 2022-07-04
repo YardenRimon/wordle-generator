@@ -9,10 +9,15 @@ import styles from "../styles/Home.module.css";
 
 export default function Home() {
   const [place, setPlace] = useState(null);
+  // const [input, setInput] = useState(null);
   const [placesNames, setPlaceNames] = useState([]);
   const [answers, setAnswers] = useState(["", "", "", "", "", ""]);
   const [gameOver, setGameOver] = useState(false);
   const [playerWon, setPlayerWon] = useState(false);
+  // const [status, setStatus] = useState("run");
+  // console.log(input);
+  console.log("gameOver", gameOver);
+  console.log("playerWon", playerWon);
 
   useEffect(() => {
     function fetchPlace() {
@@ -41,24 +46,27 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <Header /> gameOver
+        <Header />
         {!!place ? (
           <Display place={place} playerWon={playerWon} gameOver={gameOver} />
         ) : (
           <p>Loading Riddle...</p>
         )}
-        <Answers answers={answers} place={place} />
-        {placesNames.length && (
-          <PlaceInput
-            placesNames={placesNames}
-            setAnswers={setAnswers}
-            answers={answers}
-            setPlayerWon={setPlayerWon}
-            setGameOver={setGameOver}
-            place={place}
-          />
+        <Answers answers={answers} place={place} playerWon={playerWon} />
+        {!gameOver && placesNames.length && (
+          <>
+            <PlaceInput
+              placesNames={placesNames}
+              setAnswers={setAnswers}
+              answers={answers}
+              setPlayerWon={setPlayerWon}
+              setGameOver={setGameOver}
+              place={place}
+              // setInput={setInput}
+            />
+            <GuessButton />
+          </>
         )}
-        <GuessButton />
       </main>
 
       <footer className={styles.footer}>

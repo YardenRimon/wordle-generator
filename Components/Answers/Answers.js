@@ -12,7 +12,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function Answers({ answers, place }) {
+export default function Answers({ answers, place, playerWon }) {
   console.log("answers", answers);
   // const lastGuess = answers.reverse.find((answer) => answer !== "");
   // console.log(lastGuess);
@@ -24,7 +24,7 @@ export default function Answers({ answers, place }) {
       <Stack spacing={3}>
         {answers.map((answer, index) => (
           <Item key={index} id={index}>
-            {answer}
+            {answer === place.title ? answer + "u won!!!" : answer}
           </Item>
         ))}
       </Stack>

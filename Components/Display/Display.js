@@ -1,13 +1,28 @@
-export default function Display({ place,gameOver,playerWon }) {
+// import LossAlert from "../LossAlert";
+// import SuccessAlert from "../SuccessAlert";
+
+export default function Display({ place }) {
   const { x, y } = place.location;
 
+  // function gameStatus() {
+  //   {
+  //     if (gameOver) {
+  //       console.log("1");
+  //       if (playerWon) {
+  //         console.log("2");
+  //         return <SuccessAlert />;
+  //       } else {
+  //         console.log("3");
+  //         return <LossAlert />;
+  //       }
+  //     } else {
+  //       console.log("4");
+  //     }
+  //   }
+  // }
   return (
-    if (gameOver) { if (playerWon) {
-      
-    }
-      
-    }
     <>
+      {/* {gameStatus()} */}
       <iframe
         id="ifrMap"
         frameBorder="0"

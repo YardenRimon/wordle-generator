@@ -10,11 +10,13 @@ import getDistance from "geolib/es/getDistance";
 const geolib = require("geolib");
 
 export default function Home() {
+  const [places, setPlaces] = useState(null);
   const [place, setPlace] = useState(null);
   const [placesNames, setPlaceNames] = useState([]);
   const [answers, setAnswers] = useState(["", "", "", "", "", ""]);
   const [gameOver, setGameOver] = useState(false);
   const [playerWon, setPlayerWon] = useState(false);
+  const [lastAnswer, setLastAnswer] = useState({});
   console.log("gameOver", gameOver);
   console.log("playerWon", playerWon);
 
@@ -22,7 +24,8 @@ export default function Home() {
     function fetchPlace() {
       fetch("/api/place")
         .then((res) => res.json())
-        .then(({ place, placesNames }) => {
+        .then(({ place, placesNames, places }) => {
+          setPlaces(places);
           setPlace(place);
           setPlaceNames(placesNames);
         })
@@ -34,7 +37,6 @@ export default function Home() {
   }, []);
 
   return (
-    // <div className={styles.body}>
     <>
       <div className={styles.container}>
         <Head>
@@ -58,15 +60,15 @@ export default function Home() {
             <PlaceInput
               placesNames={placesNames}
               setAnswers={setAnswers}
+              setLastAnswer={setLastAnswer}
               answers={answers}
               setPlayerWon={setPlayerWon}
               setGameOver={setGameOver}
               place={place}
-              // setInput={setInput}
+              places={places}
             />
           )}
         </main>
-        {/* </div> */}
       </div>
       <footer className={styles.footer}>
         <div>Contact Us</div>

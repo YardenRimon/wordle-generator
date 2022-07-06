@@ -23,10 +23,11 @@ const handler = async (req, res) => {
     }
   } else if (req.method === "GET") {
     Place.find()
-      .then((places) => {
-        const placesNames = places.map((place) => place.title);
-        const place = places.find((place) => !place.used);
-        res.status(200).send({ placesNames, place });
+      .then((data) => {
+        const placesNames = data.map((place) => place.title);
+        const place = data.find((place) => !place.used);
+        const places = data;
+        res.status(200).send({ placesNames, place, places });
       })
       .catch((err) => res.send("ERROR:", err));
   } else {

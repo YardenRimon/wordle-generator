@@ -5,8 +5,8 @@ const PlaceSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
   location: {
-    x: { type: Number, required: true },
-    y: { type: Number, required: true },
+    longitude: { type: Number, required: true },
+    latitude: { type: Number, required: true },
   },
   details: { type: String, required: true },
   used: { type: Boolean, default: false },

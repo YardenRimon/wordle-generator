@@ -16,7 +16,7 @@ export default function Home() {
   const [answers, setAnswers] = useState(["", "", "", "", "", ""]);
   const [gameOver, setGameOver] = useState(false);
   const [playerWon, setPlayerWon] = useState(false);
-  const [lastAnswer, setLastAnswer] = useState({});
+  const [lastAnswer, setLastAnswer] = useState(null);
   console.log("gameOver", gameOver);
   console.log("playerWon", playerWon);
 
@@ -29,12 +29,48 @@ export default function Home() {
           setPlace(place);
           setPlaceNames(placesNames);
         })
+        // .then(console.log(place))
         .catch((err) => {
           console.log(err);
         });
     }
     fetchPlace();
   }, []);
+
+  // console.log(place);
+
+  useEffect(() => {
+    function newAnswer() {
+      if (lastAnswer !== null) {
+        console.log("newAnswer", lastAnswer.location);
+        console.log("newAnswer", place.location);
+        const distance = geolib.getDistance(
+          lastAnswer.location,
+          place.location
+        );
+        console.log("distance", distance);
+        // const direction = geolib.getCompassDirection(
+        //   lastAnswer.location,
+        //   place.location
+        // );
+        const precents = (distance * 100) / 434;
+        const newAnswers = [...answers];
+        const i = newAnswers.findIndex((answer) => answer === "");
+        if (0 < i < 5) {
+          newAnswers[i] = {
+            title: lastAnswer.title,
+            distance: distance,
+            // direction: direction,
+            precents: precents,
+          };
+          setAnswers(newAnswers);
+        } else if (i === -1) {
+          setGameOver(true);
+        }
+      }
+    }
+    newAnswer();
+  }, [lastAnswer]);
 
   return (
     <>
@@ -66,6 +102,8 @@ export default function Home() {
               setGameOver={setGameOver}
               place={place}
               places={places}
+              lastAnswer={lastAnswer}
+              // newAnswer={newAnswer}
             />
           )}
         </main>

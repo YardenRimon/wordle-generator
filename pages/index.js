@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import Answers from "../Components/Answers";
 import Display from "../Components/Display";
 import Header from "../Components/Header";
-import PlaceInput from "../Components/PlaceInput";
+import PlaceInput from "../Components/GuessInput";
 import styles from "../styles/Home.module.css";
 import getDistance from "geolib/es/getDistance";
+import PlayerStatistics from "../Components/dialogs/PlayerStatisticsModal";
 
 const geolib = require("geolib");
 
@@ -17,8 +18,12 @@ export default function Home() {
   const [gameOver, setGameOver] = useState(false);
   const [playerWon, setPlayerWon] = useState(false);
   const [lastAnswer, setLastAnswer] = useState(null);
+  const [openPlayerStatistics, setOpenPlayerStatistics] = useState(false);
+  const handleOpenPlayerStatistics = () => setOpenPlayerStatistics(true);
+  const handleClosePlayerStatistics = () => setOpenPlayerStatistics(false);
   console.log("gameOver", gameOver);
   console.log("playerWon", playerWon);
+  console.log("openPlayerStatistics", openPlayerStatistics);
 
   useEffect(() => {
     function fetchPlace() {
@@ -29,7 +34,6 @@ export default function Home() {
           setPlace(place);
           setPlaceNames(placesNames);
         })
-        // .then(console.log(place))
         .catch((err) => {
           console.log(err);
         });
@@ -37,11 +41,10 @@ export default function Home() {
     fetchPlace();
   }, []);
 
-  // console.log(place);
-
   useEffect(() => {
     function newAnswer() {
-      if (lastAnswer !== null) {
+      console.log("lastAnswer", lastAnswer);
+      if (!!lastAnswer) {
         console.log("newAnswer", lastAnswer.location);
         console.log("newAnswer", place.location);
         const distance = geolib.getDistance(
@@ -49,22 +52,25 @@ export default function Home() {
           place.location
         );
         console.log("distance", distance);
-        // const direction = geolib.getCompassDirection(
-        //   lastAnswer.location,
-        //   place.location
-        // );
-        const precents = (distance * 100) / 434;
+        const direction = geolib.getCompassDirection(
+          lastAnswer.location,
+          place.location
+        );
+        console.log("direction", direction);
+        const precents = 100 - (distance * 100) / 434000;
         const newAnswers = [...answers];
-        const i = newAnswers.findIndex((answer) => answer === "");
+        let i = newAnswers.findIndex((answer) => answer === "");
         if (0 < i < 5) {
           newAnswers[i] = {
             title: lastAnswer.title,
-            distance: distance,
-            // direction: direction,
-            precents: precents,
+            distance: `${(distance / 1000).toFixed(1)} ק"מ`,
+            direction: direction,
+            precents: `${precents.toFixed(0)}%`,
           };
           setAnswers(newAnswers);
-        } else if (i === -1) {
+        }
+        i = newAnswers.findIndex((answer) => answer === "");
+        if (i === -1) {
           setGameOver(true);
         }
       }
@@ -80,14 +86,23 @@ export default function Home() {
           <meta name="Know israel better" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Header />
+        <Header handleOpenPlayerStatistics={handleOpenPlayerStatistics} />
+        <PlayerStatistics
+          handleClosePlayerStatistics={handleClosePlayerStatistics}
+          openPlayerStatistics={openPlayerStatistics}
+        />
         {!!place ? (
           <Display place={place} playerWon={playerWon} gameOver={gameOver} />
         ) : (
           <p>Loading...</p>
         )}
         {!!place ? (
-          <Answers answers={answers} place={place} playerWon={playerWon} />
+          <Answers
+            answers={answers}
+            place={place}
+            playerWon={playerWon}
+            handleOpenPlayerStatistics={handleOpenPlayerStatistics}
+          />
         ) : (
           <p>Loading...</p>
         )}

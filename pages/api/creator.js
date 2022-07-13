@@ -1,21 +1,23 @@
 import connectDB from "../../middleware/mongodb";
 import bcrypt from "bcrypt";
-import User from "../../models/user";
+import CreatorModel from "../../models/creatorModel";
 
 const handler = async (req, res) => {
   req.dasdasd;
   if (req.method === "POST") {
     const { name, email, password } = req.body;
+    const { first, last } = name;
     if (name && email && password) {
       try {
         const passwordhash = await bcrypt.hash(password, 10);
-        const user = new User({
-          name,
+        const creator = new CreatorModel({
+          name: { first, last },
           email,
           password: passwordhash,
         });
-        const usercreated = await user.save();
-        return res.status(200).send(usercreated);
+        const creatorCreated = await creator.save();
+        console.log("creatorCreated", creatorCreated);
+        return res.status(200).send(creatorCreated);
       } catch (error) {
         return res.status(500).send(error.message);
       }

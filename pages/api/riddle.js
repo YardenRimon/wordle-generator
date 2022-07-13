@@ -1,19 +1,19 @@
 import connectDB from "../../middleware/mongodb";
-import Place from "../../models/place";
+import RiddleModel from "../../models/riddleModel";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
-    const { title, description, location, details } = req.body;
+    const { title: answer, description, location, details } = req.body;
     // const { x, y } = location;
-    if (title && description && location && details) {
+    if (answer && description && location && details) {
       try {
-        const place = new Place({
-          title,
+        const riddle = new RiddleModel({
+          title: answer,
           description,
           location,
           details,
         });
-        const placecreated = await place.save();
+        const placecreated = await riddle.save();
         return res.status(200).send(placecreated);
       } catch (error) {
         return res.status(500).send(error.message);
@@ -22,12 +22,12 @@ const handler = async (req, res) => {
       res.status(422).send("data_incomplete");
     }
   } else if (req.method === "GET") {
-    Place.find()
+    RiddleModel.find()
       .then((data) => {
-        const placesNames = data.map((place) => place.title);
-        const place = data.find((place) => !place.used);
-        const places = data;
-        res.status(200).send({ placesNames, place, places });
+        const answers = data.map((riddle) => riddle.answer);
+        const riddle = data.find((riddle) => !riddle.used);
+        const riddles = data;
+        res.status(200).send({ answers, riddle, riddles });
       })
       .catch((err) => res.send("ERROR:", err));
   } else {
